@@ -41,7 +41,7 @@ export default class DrawTrajectory extends React.Component<Props, State>{
         maxDeviationPoint = {x: maxDeviationPoint.x-minX, y:maxDeviationPoint.y-minY};
 
         return (
-            <svg width="1500" height="1500">
+            <svg width={width} height={heigth}>
               <polyline points={pointsTrajectoryAdjusted} fill="none" stroke="black" />
               <polyline points={line} fill="none" stroke="red" />
               <circle cx={maxDeviationPoint.x} cy={maxDeviationPoint.y}  r="10" fill="red" />
