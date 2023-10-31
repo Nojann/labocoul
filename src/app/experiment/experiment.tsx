@@ -54,8 +54,6 @@ export default class Experiment extends React.Component<Props, StateExperiment>{
         this.setState({
             experimentData : data,
         })
-
-        console.log(this.state.experimentData);
     }
 
     render(){

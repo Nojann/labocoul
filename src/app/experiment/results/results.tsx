@@ -17,7 +17,6 @@ export default class Results extends React.Component<Props, State>{
 
     
     render(){
-        console.log(this.props.experimentData);
         return(
             <>
                 <div>
