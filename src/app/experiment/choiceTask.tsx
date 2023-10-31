@@ -77,7 +77,7 @@ export default class ChoiceTask extends React.Component<Props, State>{
         let index = this.state.combinationIndex+1;
 
         //Next state of color combination
-        if(index < 2 /*this.state.combinations.length*/){
+        if(index < this.state.combinations.length){
             this.setState({
                 choiceTaskReady: false,
                 colorLeft: this.state.combinations[index].left,
