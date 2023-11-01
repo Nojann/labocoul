@@ -44,7 +44,7 @@ export default class DrawTrajectory extends React.Component<Props, State>{
             <svg width={width} height={heigth}>
               <polyline points={pointsTrajectoryAdjusted} fill="none" stroke="black" />
               <polyline points={line} fill="none" stroke="red" />
-              <circle cx={maxDeviationPoint.x} cy={maxDeviationPoint.y}  r="10" fill="red" />
+              <circle cx={maxDeviationPoint.x} cy={maxDeviationPoint.y}  r="5" fill="red" />
             </svg>
           );
     }
@@ -67,16 +67,41 @@ export default class DrawTrajectory extends React.Component<Props, State>{
 
         let maxDeviation : number = 0;
         let maxDeviationIndex : number = 0;
+        
 
-        for (let i = 0; i<trajectory.length; i++){
+        /*for (let i = 0; i<trajectory.length; i++){
             let distance = this.euclideanDistance(idealTrajectory[i], trajectory[i]);
             if(distance > maxDeviation){
                 maxDeviation = distance;
                 maxDeviationIndex = i;
             }
+        }*/
+
+        let minDistance : number = 10000;
+        let minDistances : number[] = new Array();
+
+        for (let i = 0; i<trajectory.length; i++){
+            let distances: number[] = new Array();
+            for (let j = 0; j<trajectory.length; j++){
+                let distance = this.euclideanDistance(idealTrajectory[j], trajectory[i]);
+                distances.push(distance);
+                if(distance < minDistance){
+                    minDistance = distance;
+                }
+            }
+            minDistances.push(Math.min(...distances))    
         }
 
-        return trajectory[maxDeviationIndex];
+        let maxDistance : number = Math.max(...minDistances);
+        let maxDistanceIndex : number = 0;
+        for(let i = 0; i<minDistances.length; i++){
+            if(maxDistance == minDistances[i]){
+                maxDistanceIndex = i;
+            }
+        }
+        
+
+        return trajectory[maxDistanceIndex];
     }
 
     euclideanDistance(point1: point, point2: point): number {
